@@ -14,5 +14,9 @@ contract Lottery {
         
         players.push(msg.sender);
     }
+
+    function random() private view returns (uint) {
+        return uint(sha3(block.difficulty, now, players));
+    }
     
 }
