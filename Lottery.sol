@@ -14,17 +14,21 @@ contract Lottery {
         
         players.push(msg.sender);
     }
-
+    
     function random() private view returns (uint) {
-        return uint(sha3(block.difficulty, now, players));
+        return uint(keccak256(block.difficulty, now, players));
     }
-
-    function pickWinner() public {
-        require(msg.sender == manager);
-
+    
+    function pickWinner() public restricted {
         uint idx = random() % players.length;
         players[idx].transfer(this.balance);
         players = new address[](0);
+    }
+    
+    // function modifiers
+    modifier restricted() {
+        require(msg.sender == manager);
+        _;
     }
     
 }
