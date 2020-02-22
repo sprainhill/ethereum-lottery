@@ -10,6 +10,8 @@ contract Lottery {
     }
     
     function enter() public payable {
+        require(msg.value > 0.01 ether);
+        
         players.push(msg.sender);
     }
     
