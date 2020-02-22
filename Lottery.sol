@@ -18,5 +18,9 @@ contract Lottery {
     function random() private view returns (uint) {
         return uint(sha3(block.difficulty, now, players));
     }
+
+    function pickWinner() public {
+        uint idx = random() % players.length
+    }
     
 }
