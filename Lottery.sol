@@ -20,9 +20,11 @@ contract Lottery {
     }
 
     function pickWinner() public {
+        require(msg.sender == manager);
+
         uint idx = random() % players.length;
         players[idx].transfer(this.balance);
-        players = new address[](0)
+        players = new address[](0);
     }
     
 }
